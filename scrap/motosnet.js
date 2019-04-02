@@ -9,7 +9,7 @@ const site = 'motos.net';
 function retrieveAds(model, location, brand, callback) {
     let options =  {
         // http://motos.coches.net/ocasion/bmw/f_800_gt/madrid?pg={page}&Version=f%20800%20gt&fi=SortDate
-        url: `http://motos.coches.net/ocasion/${brand.replace(/ /g, '-')}/${model.replace(/ /g, '_')}/${location.replace(' ', '-')}?pg={page}&Version=f%20800%20gt&fi=SortDate`,
+        url: `https://motos.coches.net/ocasion/${brand.replace(/ /g, '-')}/${model.replace(/ /g, '_')}/${location.replace(' ', '-')}`,
         headers: {
             'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:41.0) Gecko/20100101 Firefox/41.0',
             'Accept': '*/*',
@@ -17,7 +17,7 @@ function retrieveAds(model, location, brand, callback) {
             'Referer': `http://motos.coches.net/ocasion/${brand.replace(/ /g, '-')}/${model.replace(/ /g, '_')}/`,
         }
     };
-    
+
     let ads = [];
     request(options, function(err, resp, body) {
         if (err) {
@@ -28,32 +28,33 @@ function retrieveAds(model, location, brand, callback) {
             });
         }
 
-        $ = cheerio.load(body);
+        $ = cheerio.load(body)
         $('#rows .lnkad').each(function() {
-            var title = $(this).find('h2').text().trim();
-            var price = $(this).find('.preu').text().trim();
-            var date = $(this).find('p.data').text().trim();
-            var link = $(this).attr('href').trim();
-            var km = $(this).find('.dades .d1').text().trim().replace(' km', '');
-            var year = $(this).find('.dades .d2').text().trim();
+            let title = $(this).find('h2').text().trim();
+            let img = $(this).find('.p').attr('style');
+            let price = $(this).find('.preu').text().trim();
+            let date = $(this).find('p.data').text().trim();
+            let link = 'https://' + site + $(this).attr('href').trim();
+            let km = $(this).find('.dades .d1').text().trim().replace(' km', '');
+            let year = $(this).find('.dades .d2').text().trim();
 
-            // [\s\S]* means "spaces and no spaces". this is like .* but matching also line breaks. so this is a "multiline regex"
             let moto = {
-                'site': site,
-                'title': title,
-                'price': price,
-                'link': link,
-                'date': date,
-                'km': km,
-                'year': year
+                site,
+                title,
+                img: img ? img.substring(img.lastIndexOf("backgrond:url('") + 17 , img.lastIndexOf("')")) : 'none',
+                price,
+                link,
+                date,
+                km,
+                year
             };
             ads.push(moto);
         });
 
         callback(null, {
-            'site': site,
+            site,
             'error': false,
-            'ads': ads
+            ads
         });
     });
 }

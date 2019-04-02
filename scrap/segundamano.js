@@ -22,39 +22,42 @@ function retrieveAds(model, location, brand, callback) {
     request(options, function(err, resp, body) {
         if (err) {
             return callback(null, {
-                'site': site,
+                site,
                 'error': true,
-                'ads': ads
+                ads
             });
         }
 
         $ = cheerio.load(body);
         $('.list_ads_row').each(function() {
-            var title = $(this).find('.subjectTitle').text().trim();
-            var price = $(this).find('.subjectPrice').text().trim();
-            var date = $(this).find('.dateLink').text().trim();
-            var link = $(this).find('.subjectTitle').attr('href').trim();
-            var id = link.match(/\/(a[0-9]+)\//)[1];
-            var km = $(this).find('.add-info .infoBottom').text().trim().replace(/.*?\-\s(.*?)\skm/, '$1');
-            var year = $(this).find('.add-info .infoBottom').text().trim().replace(/[\s\S]*?año\s(\d+)/, '$1');
-            // [\s\S]* means "spaces and no spaces". this is like .* but matching also line breaks. so this is a "multiline regex"
+            let title = $(this).find('.subjectTitle').text().trim();
+            let price = $(this).find('.subjectPrice').text().trim();
+            let date = $(this).find('.dateLink').text().trim();
+            let link = $(this).find('.subjectTitle').attr('href').trim();
+            let id = link.match(/\/(a[0-9]+)\//)[1];
+            // let img = $(this).find('.lazy').src();
+            let km = $(this).find('.add-info .infoBottom').text().trim().replace(/.*?\-\s(.*?)\skm/, '$1');
+            let year = $(this).find('.add-info .infoBottom').text().trim().replace(/[\s\S]*?año\s(\d+)/, '$1');
+
+            // console.log(img)
+
             let moto = {
-                'site': site,
-                'title': title,
-                'price': price,
-                'link': link,
-                'id': id,
-                'date': date,
-                'km': km,
-                'year': year
+                site,
+                title,
+                price,
+                link,
+                id,
+                date,
+                km,
+                year
             };
             ads.push(moto);
         });
 
         callback(null, {
-            'site': site,
+            site,
             'error': false,
-            'ads': ads
+            ads
         });
     });
 }
