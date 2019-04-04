@@ -1,2 +1,2 @@
 ﻿# NodeScraper
-Web scraper with nodeJs for looking for a motorcycle in motos.net and vibbo
+Web scraper with nodeJs to looking for a motorcycle in motos.net and vibbo
