@@ -3,6 +3,12 @@ let segundamano = require('./scrap/segundamano');
 let motosnet = require('./scrap/motosnet');
 
 
+function prueba(req, res){
+    return res.status(200).send({
+        results
+    });
+}
+
 function search(req, res){
     let params = req.body
 
@@ -26,5 +32,6 @@ function search(req, res){
 }
 
 module.exports =  {
-    search
+    search,
+    prueba
 }

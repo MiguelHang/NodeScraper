@@ -3,7 +3,7 @@ let api = express.Router();
 
 let scraper = require('./index');
 
-// api.get('/scan', scraper.search);
+api.get('/', scraper.prueba);
 api.post('/scan', scraper.search);
 
 module.exports = api;
