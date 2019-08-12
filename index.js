@@ -5,7 +5,7 @@ let motosnet = require('./scrap/motosnet');
 
 function prueba(req, res){
     return res.status(200).send({
-        results
+        message: 'Scraper running'
     });
 }
 
