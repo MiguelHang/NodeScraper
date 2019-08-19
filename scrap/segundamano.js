@@ -35,15 +35,15 @@ function retrieveAds(model, location, brand, callback) {
             let date = $(this).find('.dateLink').text().trim();
             let link = $(this).find('.subjectTitle').attr('href').trim();
             let id = link.match(/\/(a[0-9]+)\//)[1];
-            // let img = $(this).find('.lazy').src();
+            let img = 'http:' + $(this).find('.lazy').attr('title');
             let km = $(this).find('.add-info .infoBottom').text().trim().replace(/.*?\-\s(.*?)\skm/, '$1');
             let year = $(this).find('.add-info .infoBottom').text().trim().replace(/[\s\S]*?año\s(\d+)/, '$1');
 
-            // console.log(img)
 
             let moto = {
                 site,
                 title,
+                img,
                 price,
                 link,
                 id,
