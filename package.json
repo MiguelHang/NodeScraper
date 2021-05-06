@@ -18,7 +18,7 @@
     "iconv-lite": "^0.4.24",
     "nodemailer": "^6.0.0",
     "request": "^2.88.0",
-    "underscore": "^1.9.1"
+    "underscore": "^1.12.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"
