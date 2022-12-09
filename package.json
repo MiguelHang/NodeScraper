@@ -14,7 +14,7 @@
     "async": "^2.6.2",
     "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "iconv-lite": "^0.4.24",
     "nodemailer": "^6.0.0",
     "request": "^2.88.0",
